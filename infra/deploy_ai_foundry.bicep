@@ -2,7 +2,7 @@
 param solutionName string
 param solutionLocation string
 param keyVaultName string
-param cuLocation string
+// param cuLocation string
 param deploymentType string
 param gptModelName string
 param gptModelVersion string
@@ -14,8 +14,8 @@ param managedIdentityObjectId string
 var storageName = '${solutionName}hubstorage'
 var storageSkuName = 'Standard_LRS'
 var aiServicesName = '${solutionName}-aiservices'
-var aiServicesName_cu = '${solutionName}-aiservices-cu'
-var location_cu = cuLocation
+// var aiServicesName_cu = '${solutionName}-aiservices-cu'
+// var location_cu = cuLocation
 // var aiServicesName_m = '${solutionName}-aiservices_m'
 // var location_m = solutionLocation
 var workspaceName = '${solutionName}-workspace'

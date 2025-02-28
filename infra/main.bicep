@@ -7,20 +7,6 @@ targetScope = 'resourceGroup'
 param environmentName string
 
 @minLength(1)
-@description('Location for the Content Understanding service deployment:')
-@allowed(['westus'
-'swedencentral' 
-'australiaeast'
-])
-
-@metadata({
-  azd: {
-    type: 'location'
-  }
-})
-param contentUnderstandingLocation string
-
-@minLength(1)
 @description('Secondary location for databases creation(example:eastus2):')
 param secondaryLocation string
 
@@ -67,7 +53,7 @@ param embeddingDeploymentCapacity int = 80
 param imageTag string = 'latest'
 
 var uniqueId = toLower(uniqueString(subscription().id, environmentName, resourceGroup().location))
-var solutionPrefix = 'km${padLeft(take(uniqueId, 12), 12, '0')}'
+var solutionPrefix = 'ccb${padLeft(take(uniqueId, 11), 11, '0')}'
 var resourceGroupLocation = resourceGroup().location
 // var resourceGroupName = resourceGroup().name
 
@@ -103,7 +89,6 @@ module aifoundry 'deploy_ai_foundry.bicep' = {
     solutionName: solutionPrefix
     solutionLocation: resourceGroupLocation
     keyVaultName: kvault.outputs.keyvaultName
-    cuLocation: contentUnderstandingLocation
     deploymentType: deploymentType
     gptModelName: gptModelName
     gptModelVersion: gptModelVersion

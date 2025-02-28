@@ -77,6 +77,19 @@ resource storageAccounts_default_data 'Microsoft.Storage/storageAccounts/blobSer
   }
 }
 
+// resource storageAccounts_default_input 'Microsoft.Storage/storageAccounts/blobServices/containers@2022-09-01' = {
+//   parent: storageAccounts_default
+//   name: 'graphrag'
+//   properties: {
+//     defaultEncryptionScope: '$account-encryption-key'
+//     denyEncryptionScopeOverride: false
+//     publicAccess: 'None'
+//   }
+//   dependsOn: [
+//     storageAccounts_resource
+//   ]
+// }
+
 @description('This is the built-in Storage Blob Data Contributor.')
 resource blobDataContributor 'Microsoft.Authorization/roleDefinitions@2018-01-01-preview' existing = {
   scope: resourceGroup()
@@ -94,6 +107,7 @@ resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
 
 
 var storageAccountKeys = listKeys(storageAccounts_resource.id, '2021-04-01')
+// var storageAccountString = 'DefaultEndpointsProtocol=https;AccountName=${storageAccounts_resource.name};AccountKey=${storageAccounts_resource.listKeys().keys[0].value};EndpointSuffix=${environment().suffixes.storage}'
 
 resource keyVault 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
   name: keyVaultName
